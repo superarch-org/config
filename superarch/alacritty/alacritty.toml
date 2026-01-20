@@ -1,0 +1,8 @@
+[selection]
+save_to_clipboard = true
+
+[keyboard]
+bindings = [
+  { key = "C", mods = "Control|Shift", action = "Copy" },
+  { key = "V", mods = "Control|Shift", action = "Paste" },
+]

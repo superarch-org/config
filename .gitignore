@@ -1,0 +1,22 @@
+# ignore everything by default
+*
+
+# keep this file tracked
+!.gitignore
+
+# track only these managed directories
+!superarch/
+!superarch/**
+
+!alacritty/
+!alacritty/**
+
+!niri/
+!niri/**
+
+!tmux/
+!tmux/**
+
+# Explicitly keep user overrides untracked 
+custom/
+
