@@ -4,7 +4,7 @@
 # keep this file tracked
 !.gitignore
 
-# track only these managed directories
+# track only managed directories
 !superarch/
 !superarch/**
 
@@ -17,6 +17,9 @@
 !tmux/
 !tmux/**
 
-# Explicitly keep user overrides untracked 
+!nvim/
+!nvim/**
+
+# explicitly keep user overrides untracked 
 custom/
 
