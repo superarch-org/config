@@ -4,7 +4,7 @@
 # keep this file tracked
 !.gitignore
 
-# track only managed directories
+# managed directories
 !superarch/
 !superarch/**
 
@@ -20,6 +20,27 @@
 !nvim/
 !nvim/**
 
-# explicitly keep user overrides untracked 
-custom/
+# managed systemd user units
+# ignore all systemd state by default
+systemd/**
 
+# allow the directories
+!systemd/
+!systemd/user/
+
+# ignore everything under user (including wants/)
+systemd/user/**
+
+# track only the two unit symlinks at top-level
+!systemd/user/theme.service
+!systemd/user/theme.path
+
+# never track enablement state
+systemd/user/*wants/
+systemd/user/*wants/**
+
+# -------------------------
+# generated files (do not track)
+# -------------------------
+superarch/current/
+superarch/current/**

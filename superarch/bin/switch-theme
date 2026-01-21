@@ -1,0 +1,23 @@
+#!/bin/sh
+set -eu
+
+cfg="$HOME/.config/theme.toml"
+outdir="$HOME/.config/superarch/current/font"
+mkdir -p "$outdir"
+
+family="$(sed -n 's/^font_family = "\([^"]*\)".*/\1/p' "$cfg" | tail -1)"
+style="$(sed -n 's/^font_style = "\([^"]*\)".*/\1/p' "$cfg" | tail -1)"
+size="$(sed -n 's/^font_size = \([0-9.]*\).*/\1/p' "$cfg" | tail -1)"
+
+[ -n "${family:-}" ] || { echo "theme.toml: missing font_family" >&2; exit 1; }
+[ -n "${style:-}" ] || style="Regular"
+[ -n "${size:-}" ] || size="12.0"
+
+cat > "$outdir/alacritty.toml" <<EOF
+[font]
+size = $size
+
+[font.normal]
+family = "$family"
+style = "$style"
+EOF

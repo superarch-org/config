@@ -1,3 +1,8 @@
+general.import = [
+  "~/.config/superarch/current/font/alacritty.toml",
+  "~/.config/custom/alacritty/font.toml",
+]
+
 [selection]
 save_to_clipboard = true
 
@@ -11,3 +16,11 @@ bindings = [
   { key = "C", mods = "Super", action = "Copy" },
   { key = "V", mods = "Super", action = "Paste" },
 ]
+
+[window]
+decorations = "None"
+dynamic_padding = true
+
+[window.padding]
+x = 5
+y = 5
