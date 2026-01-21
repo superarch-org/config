@@ -10,6 +10,12 @@ case "$app_id" in
     is_term=1 ;;
 esac
 
+notify_copy() {
+  command -v notify-send >/dev/null 2>&1 || return 0
+  # Replace prior "Copied" notification instead of stacking spam
+  notify-send -t 3000 -h string:x-canonical-private-synchronous:uniclip "Copied"
+}
+
 copy_gui()  { wtype -M ctrl c -m ctrl; }
 paste_gui() { wtype -M ctrl v -m ctrl; }
 
@@ -19,6 +25,7 @@ paste_term() { wtype -M ctrl -M shift v -m shift -m ctrl; }
 case "${1:-}" in
   copy)
     [ "$is_term" -eq 1 ] && copy_term || copy_gui
+    notify_copy
     ;;
   paste)
     [ "$is_term" -eq 1 ] && paste_term || paste_gui

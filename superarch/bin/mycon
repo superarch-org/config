@@ -1,0 +1,142 @@
+#!/usr/bin/env bash
+set -euo pipefail
+
+STATE="$HOME/.config/theme.toml"
+APPLY="$HOME/.config/superarch/bin/switch-theme"
+REGISTRY_SH="$HOME/.config/superarch/fonts.sh"
+
+die() { echo "mycon: $*" >&2; exit 1; }
+need_file() { [[ -f "$1" ]] || die "missing file: $1"; }
+
+# ---- theme.toml helpers ----
+state_get_string() {
+  local key="$1"
+  sed -n "s/^${key}[[:space:]]*=[[:space:]]*\"\\([^\"]*\\)\".*/\\1/p" "$STATE" | tail -1
+}
+
+state_get_number() {
+  local key="$1"
+  sed -n "s/^${key}[[:space:]]*=[[:space:]]*\\([0-9.][0-9.]*\\).*/\\1/p" "$STATE" | tail -1
+}
+
+state_set_string() {
+  local key="$1" value="$2"
+  if grep -qE "^${key}[[:space:]]*=" "$STATE"; then
+    # replace line
+    sed -i "s|^${key}[[:space:]]*=.*|${key} = \"${value}\"|g" "$STATE"
+  else
+    printf '%s = "%s"\n' "$key" "$value" >> "$STATE"
+  fi
+}
+
+state_set_number() {
+  local key="$1" value="$2"
+  if grep -qE "^${key}[[:space:]]*=" "$STATE"; then
+    sed -i "s|^${key}[[:space:]]*=.*|${key} = ${value}|g" "$STATE"
+  else
+    printf '%s = %s\n' "$key" "$value" >> "$STATE"
+  fi
+}
+
+# ---- registry (shell-sourced) ----
+source_registry() {
+  need_file "$REGISTRY_SH"
+  # shellcheck source=/dev/null
+  source "$REGISTRY_SH"
+
+  command -v superarch_font_ids >/dev/null 2>&1 || die "fonts.sh missing superarch_font_ids()"
+  command -v superarch_font_get >/dev/null 2>&1 || die "fonts.sh missing superarch_font_get()"
+}
+
+# ---- commands ----
+cmd_font_list() {
+  source_registry
+  echo "Supported fonts:"
+  while IFS= read -r id; do
+    [[ -n "$id" ]] || continue
+    local v fam sty
+    v="$(superarch_font_get "$id" 2>/dev/null || true)"
+    if [[ -z "$v" ]]; then
+      printf "  %-12s  (invalid registry entry)\n" "$id"
+      continue
+    fi
+    fam="${v%%|*}"
+    sty="${v#*|}"
+    [[ -n "$sty" ]] || sty="Regular"
+    printf "  %-12s  %s (%s)\n" "$id" "$fam" "$sty"
+  done < <(superarch_font_ids)
+}
+
+cmd_font_get() {
+  need_file "$STATE"
+  local fam sty size
+  fam="$(state_get_string font_family || true)"
+  sty="$(state_get_string font_style || true)"
+  size="$(state_get_number font_size || true)"
+
+  if [[ -z "$fam" ]]; then
+    echo "(no active font set — run: mycon font set <id>)"
+    exit 1
+  fi
+  [[ -n "$sty" ]] || sty="Regular"
+  [[ -n "$size" ]] || size="(unset)"
+  echo "$fam ($sty), size $size"
+}
+
+cmd_font_set() {
+  local id="${1:-}"
+  [[ -n "$id" ]] || die "usage: mycon font set <id>"
+  need_file "$STATE"
+  source_registry
+
+  local v fam sty
+  v="$(superarch_font_get "$id" 2>/dev/null || true)"
+  [[ -n "$v" ]] || die "unknown font id: $id"
+
+  fam="${v%%|*}"
+  sty="${v#*|}"
+  [[ -n "$sty" ]] || sty="Regular"
+
+  state_set_string font_family "$fam"
+  state_set_string font_style "$sty"
+
+  # Ensure size exists (don’t overwrite if user has one)
+  if ! grep -qE '^font_size[[:space:]]*=' "$STATE"; then
+    echo 'font_size = 12.0' >> "$STATE"
+  fi
+
+  # Apply
+  if [[ -x "$APPLY" ]]; then
+    "$APPLY" || true
+  fi
+
+  echo "Set font -> $id: $fam ($sty)"
+}
+
+usage() {
+  cat <<'EOF'
+usage:
+  mycon font list
+  mycon font get
+  mycon font set <id>
+EOF
+}
+
+main() {
+  local section="${1:-}"; shift || true
+  case "$section" in
+    font)
+      local sub="${1:-}"; shift || true
+      case "$sub" in
+        list) cmd_font_list ;;
+        get)  cmd_font_get ;;
+        set)  cmd_font_set "${1:-}" ;;
+        *) usage; exit 2 ;;
+      esac
+      ;;
+    ""|help|-h|--help) usage ;;
+    *) usage; exit 2 ;;
+  esac
+}
+
+main "$@"
