@@ -1,0 +1,26 @@
+general.import = [
+  "~/.config/superarch/current/font/alacritty.toml",
+  "~/.config/custom/alacritty/font.toml",
+]
+
+[selection]
+save_to_clipboard = true
+
+[keyboard]
+bindings = [
+  # Standard terminal copy/paste
+  { key = "C", mods = "Control|Shift", action = "Copy" },
+  { key = "V", mods = "Control|Shift", action = "Paste" },
+
+  # Super (Mod) + C/V copy/paste
+  { key = "C", mods = "Super", action = "Copy" },
+  { key = "V", mods = "Super", action = "Paste" },
+]
+
+[window]
+decorations = "None"
+dynamic_padding = true
+
+[window.padding]
+x = 5
+y = 0

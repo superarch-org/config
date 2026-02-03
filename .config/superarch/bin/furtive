@@ -1,0 +1,21 @@
+#!/bin/bash
+
+# Prompt for URL with rofi
+url=$(echo "" | rofi -dmenu -i -p "URL")
+
+# Exit if no URL entered
+[ -z "$url" ] && exit 0
+
+# Add https:// if no protocol specified
+if ! echo "$url" | grep -q "://"; then
+  url="http://$url"
+fi
+
+# Create temporary directory that gets auto-deleted
+tmpdir=$(mktemp -d)
+
+# Launch Brave with temp profile
+brave --user-data-dir="$tmpdir" --incognito "$url"
+
+# Clean up after Brave closes
+rm -rf "$tmpdir"

@@ -1,0 +1,22 @@
+#!/bin/bash
+source ~/.profile
+
+configs="Niri\nRofi\nBash/Zsh"
+
+chosen=$(echo -e "$configs" | rofi -dmenu -p "")
+
+case $chosen in
+  Niri)
+    $TERMINAL -e $EDITOR ~/.config/niri/config.kdl
+    ;;
+  Rofi)
+    $TERMINAL -e $EDITOR ~/.config/rofi/config.rasi
+    ;;
+  "Bash/Zsh")
+    if [ -f ~/.zshrc ]; then
+      $TERMINAL -e $EDITOR ~/.zshrc
+    else
+      $TERMINAL -e $EDITOR ~/.bashrc
+    fi
+    ;;
+esac

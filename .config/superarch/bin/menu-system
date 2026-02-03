@@ -1,0 +1,21 @@
+#!/bin/bash
+source ~/.profile
+
+options="Bluetooth\nNetwork\nAudio\nMonitors"
+
+chosen=$(echo -e "$options" | rofi -dmenu -p "")
+
+case $chosen in
+  Bluetooth)
+    $TERMINAL -e bluetoothctl
+    ;;
+  Network)
+    $TERMINAL -e impala
+    ;;
+  Audio)
+    pavucontrol
+    ;;
+  Monitors)
+    # Your display manager
+    ;;
+esac

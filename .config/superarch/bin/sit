@@ -1,0 +1,2 @@
+#!/bin/bash
+git --git-dir=$HOME/.config/superarch/repo.git --work-tree=$HOME "$@"

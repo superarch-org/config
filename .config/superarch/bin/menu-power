@@ -1,0 +1,21 @@
+#!/bin/bash
+source ~/.profile
+
+options="Logout\nReboot\nShutdown\nSuspend"
+
+chosen=$(echo -e "$options" | rofi -dmenu -p "")
+
+case $chosen in
+  Logout)
+    niri msg action quit
+    ;;
+  Reboot)
+    systemctl reboot
+    ;;
+  Shutdown)
+    systemctl poweroff
+    ;;
+  Suspend)
+    systemctl suspend
+    ;;
+esac

@@ -1,0 +1,27 @@
+#!/bin/bash
+
+if [ -f "package.json" ]; then
+  if grep -q '"build"' package.json; then
+    npm run build
+  else
+    echo "No build script in package.json"
+    npm install  # Or just skip
+  fi
+elif [ -f "Makefile" ]; then
+  make build || make
+elif [ -f "go.mod" ]; then
+  go build
+elif [ -f "Cargo.toml" ]; then
+  cargo build --release
+elif [ -f "pom.xml" ]; then
+  mvn clean package
+elif [ -f "build.gradle" ] || [ -f "build.gradle.kts" ]; then
+  ./gradlew build
+elif [ -f "CMakeLists.txt" ]; then
+  mkdir -p build && cd build && cmake .. && make
+elif [ -f "setup.py" ] || [ -f "pyproject.toml" ]; then
+  pip install -e . || python setup.py build
+else
+  echo "❌ no recognized project type found"
+  exit 1
+fi

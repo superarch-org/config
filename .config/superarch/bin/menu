@@ -1,0 +1,35 @@
+#!/bin/bash
+
+# Gather status info - handle multiple batteries
+battery=$(cat /sys/class/power_supply/BAT*/capacity 2>/dev/null | head -n1)%
+battery_status=$(cat /sys/class/power_supply/BAT*/status 2>/dev/null | head -n1)
+brightness=$(brightnessctl g 2>/dev/null)
+brightness_max=$(brightnessctl m 2>/dev/null)
+brightness_pct=$((brightness * 100 / brightness_max))%
+volume=$(wpctl get-volume @DEFAULT_AUDIO_SINK@ | awk '{print int($2*100)}')%
+time=$(date '+%H:%M')
+
+# Build status line with Nerd Font icons
+status="󰁹 $battery ($battery_status)  󰃟 $brightness_pct  󰕾 $volume  󰥔 $time"
+
+options="Apps\nConfig\nPower\nSystem\nInfo"
+
+chosen=$(echo -e "$options" | rofi -dmenu -i -p "")
+
+case $chosen in
+    Apps)
+        rofi -show drun
+        ;;
+    Config)
+        menu-config
+        ;;
+    Power)
+        menu-power
+        ;;
+    System)
+        menu-system
+        ;;
+    Info)
+        menu-info
+        ;;
+esac

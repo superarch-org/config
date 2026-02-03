@@ -1,0 +1,7 @@
+# Superarch Alacritty Configuration
+# This file imports defaults from superarch and user customizations
+
+general.import = [
+  "~/.config/superarch/alacritty/alacritty.toml",
+  "~/.config/custom/alacritty/alacritty.toml",
+]

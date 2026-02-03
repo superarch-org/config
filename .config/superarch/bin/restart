@@ -1,0 +1,19 @@
+#!/bin/bash
+# Restart systemd user services
+
+if [ -z "$1" ]; then
+  echo "Usage: restart <service>"
+  echo "Example: restart elephant"
+  exit 1
+fi
+
+service="$1"
+
+# Add .service extension if not provided
+if [[ ! "$service" =~ \.service$ ]]; then
+  service="${service}.service"
+fi
+
+echo "Restarting $service..."
+systemctl --user restart "$service"
+systemctl --user status "$service" --no-pager -l

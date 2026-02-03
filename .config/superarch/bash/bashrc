@@ -1,0 +1,14 @@
+# Superarch managed bash configuration
+
+# Aliases
+alias ls='ls --color=auto'
+alias grep='grep --color=auto'
+
+# Prompt
+PS1='[\u@\h \W]\$ '
+
+# SSH key management
+eval $(keychain --eval --quiet id_ed25519)
+
+# Add superarch bin to PATH
+export PATH="$HOME/.config/superarch/bin:$PATH"
