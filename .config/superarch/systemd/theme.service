@@ -1,6 +1,0 @@
-[Unit]
-Description=Apply Superarch theme
-
-[Service]
-Type=oneshot
-ExecStart=%h/.config/superarch/bin/switch-theme

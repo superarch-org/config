@@ -7,7 +7,7 @@ chosen=$(echo -e "$options" | rofi -dmenu -p "")
 
 case $chosen in
   Bluetooth)
-    $TERMINAL -e bluetoothctl
+    $TERMINAL -e bluetui
     ;;
   Network)
     $TERMINAL -e impala

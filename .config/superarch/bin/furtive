@@ -1,15 +1,41 @@
 #!/bin/bash
 
 # Prompt for URL with rofi
-url=$(echo "" | rofi -dmenu -i -p "URL")
+input=$(echo "" | rofi -dmenu -i -p "URL")
 
-# Exit if no URL entered
-[ -z "$url" ] && exit 0
+# Exit if no input entered
+[ -z "$input" ] && exit 0
 
-# Add https:// if no protocol specified
-if ! echo "$url" | grep -q "://"; then
-  url="http://$url"
-fi
+# Handle shortcuts
+case "$input" in
+  gh:*)
+    # gh:user/repo -> github.com/user/repo
+    repo="${input#gh:}"
+    url="https://github.com/$repo"
+    ;;
+  g:*)
+    # g:search term -> Google search
+    query="${input#g:}"
+    url="https://www.google.com/search?q=$(echo "$query" | sed 's/ /+/g')"
+    ;;
+  dd:*)
+    # dd:search term -> DuckDuckGo search
+    query="${input#dd:}"
+    url="https://duckduckgo.com/?q=$(echo "$query" | sed 's/ /+/g')"
+    ;;
+  yt:*)
+    # yt:search -> YouTube search
+    query="${input#yt:}"
+    url="https://www.youtube.com/results?search_query=$(echo "$query" | sed 's/ /+/g')"
+    ;;
+  *)
+    # Regular URL handling
+    url="$input"
+    if ! echo "$url" | grep -q "://"; then
+      url="http://$url"
+    fi
+    ;;
+esac
 
 # Create temporary directory that gets auto-deleted
 tmpdir=$(mktemp -d)

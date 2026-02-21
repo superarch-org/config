@@ -1,1 +1,8 @@
-../../superarch/systemd/theme.path
+[Unit]
+Description=Watch Superarch theme.toml changes
+
+[Path]
+PathChanged=%h/.config/theme.toml
+
+[Install]
+WantedBy=default.target
