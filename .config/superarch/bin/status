@@ -1,0 +1,16 @@
+#!/bin/bash
+
+if [ -z "$1" ]; then
+  echo "Usage: status <service>"
+  echo "Example: status batsignal"
+  exit 1
+fi
+
+service="$1"
+
+# Add .service extension if not provided
+if [[ ! "$service" =~ \.service$ ]]; then
+  service="${service}.service"
+fi
+
+systemctl --user status "$service" --no-pager -l
