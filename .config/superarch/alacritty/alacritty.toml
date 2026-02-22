@@ -1,5 +1,5 @@
 general.import = [
-  "~/.config/superarch/current/font/alacritty.toml",
+  "~/.config/current/font/alacritty.toml",
   "~/.config/custom/alacritty/font.toml",
 ]
 

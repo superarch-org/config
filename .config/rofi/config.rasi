@@ -1,4 +1,4 @@
-@import "~/.config/superarch/current/font/rofi.rasi"
+@import "~/.config/current/font/rofi.rasi"
 
 configuration {
   modi: "drun,run,keys";

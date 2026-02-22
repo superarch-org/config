@@ -22,7 +22,6 @@ state_get_number() {
 state_set_string() {
   local key="$1" value="$2"
   if grep -qE "^${key}[[:space:]]*=" "$STATE"; then
-    # replace line
     sed -i "s|^${key}[[:space:]]*=.*|${key} = \"${value}\"|g" "$STATE"
   else
     printf '%s = "%s"\n' "$key" "$value" >> "$STATE"
@@ -43,7 +42,6 @@ source_registry() {
   need_file "$REGISTRY_SH"
   # shellcheck source=/dev/null
   source "$REGISTRY_SH"
-
   command -v superarch_font_ids >/dev/null 2>&1 || die "fonts.sh missing superarch_font_ids()"
   command -v superarch_font_get >/dev/null 2>&1 || die "fonts.sh missing superarch_font_get()"
 }
@@ -73,7 +71,6 @@ cmd_font_get() {
   fam="$(state_get_string font_family || true)"
   sty="$(state_get_string font_style || true)"
   size="$(state_get_number font_size || true)"
-
   if [[ -z "$fam" ]]; then
     echo "(no active font set — run: mycon font set <id>)"
     exit 1
@@ -86,13 +83,22 @@ cmd_font_get() {
 cmd_font_set() {
   local id="${1:-}"
   [[ -n "$id" ]] || die "usage: mycon font set <id>"
+
+  # Create theme.toml if it doesn't exist
+  if [[ ! -f "$STATE" ]]; then
+    cat > "$STATE" <<'EOF'
+font_family = "monospace"
+font_style = "Regular"
+font_size = 12.0
+EOF
+  fi
+
   need_file "$STATE"
   source_registry
 
   local v fam sty
   v="$(superarch_font_get "$id" 2>/dev/null || true)"
   [[ -n "$v" ]] || die "unknown font id: $id"
-
   fam="${v%%|*}"
   sty="${v#*|}"
   [[ -n "$sty" ]] || sty="Regular"
@@ -100,7 +106,7 @@ cmd_font_set() {
   state_set_string font_family "$fam"
   state_set_string font_style "$sty"
 
-  # Ensure size exists (don’t overwrite if user has one)
+  # Ensure size exists (don't overwrite if user has one)
   if ! grep -qE '^font_size[[:space:]]*=' "$STATE"; then
     echo 'font_size = 12.0' >> "$STATE"
   fi
