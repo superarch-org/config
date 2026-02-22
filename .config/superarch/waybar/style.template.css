@@ -1,0 +1,27 @@
+* {
+  font-family: "FONT_FAMILY";
+  font-size: FONT_SIZEpx;
+}
+
+window#waybar {
+  background-color: rgba(30, 30, 46, 0.8);
+  color: #cdd6f4;
+  border-bottom: 1px solid #89b4fa;
+}
+
+#workspaces button {
+  padding: 0 10px;
+  color: #cdd6f4;
+}
+
+#workspaces button.active {
+  color: #89b4fa;
+  border-bottom: 1px solid #89b4fa;
+}
+
+#clock,
+#battery,
+#network,
+#pulseaudio {
+  padding: 0 10px;
+}

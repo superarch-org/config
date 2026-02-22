@@ -1,7 +1,7 @@
 #!/bin/sh
 set -eu
 
-template="$HOME/.config/superarch/swayosd/style.css.template"
+template="$HOME/.config/superarch/swayosd/style.template.css"
 output="$HOME/.config/swayosd/style.css"
 
 mkdir -p "$(dirname "$output")"
