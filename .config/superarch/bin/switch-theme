@@ -2,9 +2,9 @@
 set -eu
 
 cfg="$HOME/.config/theme.toml"
-outdir="$HOME/.config/superarch/current/font"
-mkdir -p "$outdir"
+handlers="$HOME/.config/superarch/mycon"
 
+# Parse theme.toml
 family="$(sed -n 's/^font_family = "\([^"]*\)".*/\1/p' "$cfg" | tail -1)"
 style="$(sed -n 's/^font_style = "\([^"]*\)".*/\1/p' "$cfg" | tail -1)"
 size="$(sed -n 's/^font_size = \([0-9.]*\).*/\1/p' "$cfg" | tail -1)"
@@ -13,11 +13,18 @@ size="$(sed -n 's/^font_size = \([0-9.]*\).*/\1/p' "$cfg" | tail -1)"
 [ -n "${style:-}" ] || style="Regular"
 [ -n "${size:-}" ] || size="12.0"
 
-cat > "$outdir/alacritty.toml" <<EOF
-[font]
-size = $size
+# Export for handler scripts to use
+export FONT_FAMILY="$family"
+export FONT_STYLE="$style"
+export FONT_SIZE="$size"
 
-[font.normal]
-family = "$family"
-style = "$style"
-EOF
+# Run handler scripts only if the program is installed
+for handler in "$handlers"/*.sh; do
+  [ -x "$handler" ] || continue
+
+  # Extract program name from script name (e.g., alacritty.sh -> alacritty)
+  program="$(basename "$handler" .sh)"
+
+  # Only run if the program exists on the system
+  command -v "$program" > /dev/null 2>&1 && "$handler"
+done

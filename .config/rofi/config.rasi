@@ -1,3 +1,5 @@
+@import "~/.config/superarch/current/font/rofi.rasi"
+
 configuration {
   modi: "drun,run,keys";
   combi-modi: "drun,run";
@@ -5,7 +7,6 @@ configuration {
   show-icons: true;
   matching: "fuzzy";
   sort: true;
-  font: "JetBrainsMono Nerd Font 12";
   display-drun: "$";
   case-sensitive: false;
   drun-match-fields: "name";
