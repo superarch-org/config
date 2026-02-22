@@ -1,0 +1,20 @@
+# Timeout
+default-timeout=3000
+
+# Position
+anchor=top-right
+margin=10
+
+# Font
+font=FONT_FAMILY FONT_SIZE
+
+# Styling
+background-color=#1e1e2e
+text-color=#cdd6f4
+border-color=#89b4fa
+border-size=2
+border-radius=10
+padding=10
+
+# Max visible
+max-visible=3
