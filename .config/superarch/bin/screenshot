@@ -1,0 +1,23 @@
+#!/bin/bash
+
+screenshots_dir="$HOME/pictures/screenshots"
+mkdir -p "$screenshots_dir"
+
+timestamp=$(date +'%Y-%m-%d_%H-%M-%S')
+filename="$screenshots_dir/screenshot_$timestamp.png"
+
+case "${1:-full}" in
+  full)
+    grim "$filename"
+    notify-send "Screenshot" "Full screen saved 0"
+    ;;
+  window)
+    geometry=$(niri msg -j focused-window | jq -r '.geometry | "\(.x),\(.y) \(.width)x\(.height)"')
+    grim -g "$geometry" "$filename"
+    notify-send "Screenshot" "Window saved 0"
+    ;;
+  *)
+    echo "Usage: screenshot [full|window]"
+    exit 1
+    ;;
+esac
