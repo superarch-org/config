@@ -9,11 +9,11 @@ margin=10
 font=FONT_FAMILY FONT_SIZE
 
 # Styling
-background-color=#1e1e2e
-text-color=#cdd6f4
-border-color=#89b4fa
-border-size=2
-border-radius=10
+background-color=COLOR_BASE00
+text-color=COLOR_BASE05
+border-color=COLOR_BASE03
+border-size=1
+border-radius=0
 padding=10
 
 # Max visible

@@ -1,6 +1,7 @@
 general.import = [
   "~/.config/current/font/alacritty.toml",
   "~/.config/custom/alacritty/font.toml",
+  "~/.config/current/colors/alacritty.toml",
 ]
 
 [selection]

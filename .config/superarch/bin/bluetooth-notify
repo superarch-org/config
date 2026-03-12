@@ -1,0 +1,8 @@
+#!/bin/sh
+
+# Get bluetooth status via rfkill
+if rfkill list bluetooth | grep -q "Soft blocked: no"; then
+  notify-send "Bluetooth" "Enabled 󰂯"
+else
+  notify-send "Bluetooth" "Disabled 󰂲"
+fi

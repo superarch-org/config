@@ -1,0 +1,9 @@
+#!/bin/sh
+set -eu
+
+[ -z "${1:-}" ] && { echo "usage: vip <command>"; exit 1; }
+
+cmd="$1"
+path="$(command -v "$cmd" 2>/dev/null)" || { echo "vip: $cmd: command not found"; exit 1; }
+
+exec "${EDITOR:-nvim}" "$path"

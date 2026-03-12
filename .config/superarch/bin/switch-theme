@@ -2,9 +2,10 @@
 set -eu
 
 cfg="$HOME/.config/theme.toml"
+theme_file="$HOME/.config/current/theme.yaml"
 handlers="$HOME/.config/superarch/mycon"
 
-# Parse theme.toml
+# Parse theme.toml for fonts
 family="$(sed -n 's/^font_family = "\([^"]*\)".*/\1/p' "$cfg" | tail -1)"
 style="$(sed -n 's/^font_style = "\([^"]*\)".*/\1/p' "$cfg" | tail -1)"
 size="$(sed -n 's/^font_size = \([0-9.]*\).*/\1/p' "$cfg" | tail -1)"
@@ -13,16 +14,34 @@ size="$(sed -n 's/^font_size = \([0-9.]*\).*/\1/p' "$cfg" | tail -1)"
 [ -n "${style:-}" ] || style="Regular"
 [ -n "${size:-}" ] || size="12.0"
 
-# Export for handler scripts to use
+# Export font variables
 export FONT_FAMILY="$family"
 export FONT_STYLE="$style"
 export FONT_SIZE="$size"
+
+# Parse theme.yaml and export base16 colors
+if [ -f "$theme_file" ]; then
+  # Extract base00-base0F from YAML
+  while IFS=': ' read -r key value; do
+    # Match lines like "  base00: "#2E3440""
+    case "$key" in
+      *base0[0-9]|*base0[A-F])
+        # Clean up key and value
+        key=$(echo "$key" | tr -d ' ')
+        # Strip comments and clean value
+        value=$(echo "$value" | grep -o '"#[0-9A-Fa-f]\{6\}"' | tr -d '"')
+        # Export as COLOR_BASE00, COLOR_BASE01, etc.
+        export "COLOR_$(echo "$key" | tr '[:lower:]' '[:upper:]')=$value"
+        ;;
+    esac
+  done < "$theme_file"
+fi
 
 # Run handler scripts only if the program is installed
 for handler in "$handlers"/*.sh; do
   [ -x "$handler" ] || continue
 
-  # Extract program name from script name (e.g., alacritty.sh -> alacritty)
+  # Extract program name from script name
   program="$(basename "$handler" .sh)"
 
   # Only run if the program exists on the system

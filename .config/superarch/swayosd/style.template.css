@@ -1,9 +1,8 @@
-@import "colors.css";
-
+/* No need for separate colors.css - colors inline */
 window#osd {
   border-radius: 10px;
-  border: 1px solid @outline;
-  background: alpha(@surface_container_low, 0.4);
+  border: 1px solid COLOR_BASE03;
+  background: COLOR_BASE00E6; /* 90% opacity - E6 in hex */
   font-family: "FONT_FAMILY";
   font-size: FONT_SIZEpx;
 }
@@ -20,7 +19,7 @@ window#osd image {
 
 window#osd image,
 window#osd label {
-  color: @primary;
+  color: COLOR_BASE0D;
 }
 
 window#osd progressbar:disabled,
@@ -39,12 +38,12 @@ window#osd trough {
   min-height: inherit;
   border-radius: inherit;
   border: none;
-  background: alpha(@primary_container, 0.5);
+  background: COLOR_BASE0280; /* 50% opacity - 80 in hex */
 }
 
 window#osd progress {
   min-height: inherit;
   border-radius: inherit;
   border: none;
-  background: @primary;
+  background: COLOR_BASE0D;
 }

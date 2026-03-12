@@ -1,0 +1,28 @@
+# Base16 color scheme for Alacritty
+[colors.primary]
+background = "COLOR_BASE00"
+foreground = "COLOR_BASE05"
+
+[colors.cursor]
+text = "COLOR_BASE00"
+cursor = "COLOR_BASE05"
+
+[colors.normal]
+black   = "COLOR_BASE00"
+red     = "COLOR_BASE08"
+green   = "COLOR_BASE0B"
+yellow  = "COLOR_BASE0A"
+blue    = "COLOR_BASE0D"
+magenta = "COLOR_BASE0E"
+cyan    = "COLOR_BASE0C"
+white   = "COLOR_BASE05"
+
+[colors.bright]
+black   = "COLOR_BASE03"
+red     = "COLOR_BASE08"
+green   = "COLOR_BASE0B"
+yellow  = "COLOR_BASE0A"
+blue    = "COLOR_BASE0D"
+magenta = "COLOR_BASE0E"
+cyan    = "COLOR_BASE0C"
+white   = "COLOR_BASE07"

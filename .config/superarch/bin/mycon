@@ -119,12 +119,60 @@ EOF
   echo "Set font -> $id: $fam ($sty)"
 }
 
+cmd_theme_get() {
+  need_file "$STATE"
+  local theme
+  theme="$(state_get_string theme || true)"
+  if [[ -z "$theme" ]]; then
+    echo "(no active theme set — run: mycon theme set <name>)"
+    exit 1
+  fi
+  echo "$theme"
+}
+
+cmd_theme_set() {
+  local name="${1:-}"
+  [[ -n "$name" ]] || die "usage: mycon theme set <name>"
+
+  # Create theme.toml if doesn't exist
+  if [[ ! -f "$STATE" ]]; then
+    cat > "$STATE" <<'EOF'
+theme = "catppuccin-mocha"
+font_family = "monospace"
+font_style = "Regular"
+font_size = 12.0
+EOF
+  fi
+
+  need_file "$STATE"
+
+  # Download theme YAML
+  local theme_file="$HOME/.config/current/theme.yaml"
+  local url="https://raw.githubusercontent.com/tinted-theming/schemes/refs/heads/spec-0.11/base16/${name}.yaml"
+
+  echo "Downloading theme: $name..."
+  if curl -fsSL "$url" -o "$theme_file"; then
+    state_set_string theme "$name"
+
+    # Apply theme
+    if [[ -x "$APPLY" ]]; then
+      "$APPLY" || true
+    fi
+
+    echo "Set theme -> $name"
+  else
+    die "Failed to download theme: $name (URL: $url)"
+  fi
+}
+
 usage() {
   cat <<'EOF'
 usage:
   mycon font list
   mycon font get
   mycon font set <id>
+  mycon theme get
+  mycon theme set <name>
 EOF
 }
 
@@ -137,6 +185,14 @@ main() {
         list) cmd_font_list ;;
         get)  cmd_font_get ;;
         set)  cmd_font_set "${1:-}" ;;
+        *) usage; exit 2 ;;
+      esac
+      ;;
+    theme)
+      local sub="${1:-}"; shift || true
+      case "$sub" in
+        get)  cmd_theme_get ;;
+        set)  cmd_theme_set "${1:-}" ;;
         *) usage; exit 2 ;;
       esac
       ;;

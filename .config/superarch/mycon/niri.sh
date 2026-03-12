@@ -1,18 +1,11 @@
 #!/bin/sh
 set -eu
 
-template="$HOME/.config/superarch/swayosd/style.template.css"
-output="$HOME/.config/swayosd/style.css"
+template="$HOME/.config/superarch/niri/config.template.kdl"
+output="$HOME/.config/superarch/niri/config.kdl"
 
-mkdir -p "$(dirname "$output")"
-
-# Remove decimal from font size (12.0 -> 12)
-size_int="${FONT_SIZE%.*}"
-
-# Generate style.css from template - replace fonts and ALL base16 colors
-sed -e "s/FONT_FAMILY/$FONT_FAMILY/g" \
-    -e "s/FONT_SIZE/$size_int/g" \
-    -e "s/COLOR_BASE00/$COLOR_BASE00/g" \
+# Generate config from template
+sed -e "s/COLOR_BASE00/$COLOR_BASE00/g" \
     -e "s/COLOR_BASE01/$COLOR_BASE01/g" \
     -e "s/COLOR_BASE02/$COLOR_BASE02/g" \
     -e "s/COLOR_BASE03/$COLOR_BASE03/g" \
@@ -30,5 +23,4 @@ sed -e "s/FONT_FAMILY/$FONT_FAMILY/g" \
     -e "s/COLOR_BASE0F/$COLOR_BASE0F/g" \
     "$template" > "$output"
 
-# Restart swayosd silently
-restart swayosd >/dev/null 2>&1 || true
+# Niri auto-reloads when config.kdl changes
