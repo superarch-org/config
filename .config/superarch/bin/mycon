@@ -2,7 +2,7 @@
 set -euo pipefail
 
 STATE="$HOME/.config/theme.toml"
-APPLY="$HOME/.config/superarch/bin/switch-theme"
+APPLY="$HOME/.config/superarch/bin/reconfig"
 REGISTRY_SH="$HOME/.config/superarch/fonts.sh"
 
 die() { echo "mycon: $*" >&2; exit 1; }

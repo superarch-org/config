@@ -1,0 +1,49 @@
+[manager]
+show_hidden = false
+sort_by = "natural"
+sort_reverse = false
+linemode = "size"
+cwd = { fg = "COLOR_BASE0D" }
+
+[status]
+separator_style = { fg = "COLOR_BASE03" }
+
+[select]
+border = { fg = "COLOR_BASE0D" }
+active = { fg = "COLOR_BASE00", bg = "COLOR_BASE0D" }
+inactive = { fg = "COLOR_BASE05" }
+
+[input]
+border = { fg = "COLOR_BASE0D" }
+title = { fg = "COLOR_BASE0D" }
+value = { fg = "COLOR_BASE05" }
+selected = { bg = "COLOR_BASE02" }
+
+[completion]
+border = { fg = "COLOR_BASE0D" }
+active = { bg = "COLOR_BASE02" }
+
+[tasks]
+border = { fg = "COLOR_BASE0D" }
+title = { fg = "COLOR_BASE0D" }
+hovered = { fg = "COLOR_BASE0E" }
+
+[which]
+cols = 3
+mask = { bg = "COLOR_BASE00" }
+rest = { fg = "COLOR_BASE04" }
+desc = { fg = "COLOR_BASE05" }
+
+[help]
+on = { fg = "COLOR_BASE0B" }
+run = { fg = "COLOR_BASE0E" }
+
+[filetype]
+rules = [
+  { name = "*/", fg = "COLOR_BASE0D" },
+  { mime = "image/*", fg = "COLOR_BASE0C" },
+  { mime = "video/*", fg = "COLOR_BASE0A" },
+  { mime = "audio/*", fg = "COLOR_BASE0E" },
+  { mime = "application/*zip", fg = "COLOR_BASE08" },
+  { mime = "application/*tar", fg = "COLOR_BASE08" },
+]
