@@ -1,0 +1,46 @@
+image=$HOME/pictures/anime-city-night.png
+scaling=fill
+
+# Colors (RRGGBBAA format)
+color=COLOR_BASE00
+
+inside-color=COLOR_BASE01
+line-color=COLOR_BASE02
+ring-color=COLOR_BASE0D
+text-color=COLOR_BASE05
+
+inside-clear-color=COLOR_BASE0C
+line-clear-color=COLOR_BASE0C
+ring-clear-color=COLOR_BASE0C
+text-clear-color=COLOR_BASE00
+
+inside-ver-color=COLOR_BASE0D
+line-ver-color=COLOR_BASE0D
+ring-ver-color=COLOR_BASE0D
+text-ver-color=COLOR_BASE00
+
+inside-wrong-color=COLOR_BASE08
+line-wrong-color=COLOR_BASE08
+ring-wrong-color=COLOR_BASE08
+text-wrong-color=COLOR_BASE00
+
+key-hl-color=COLOR_BASE0B
+bs-hl-color=COLOR_BASE08
+caps-lock-key-hl-color=COLOR_BASE0A
+caps-lock-bs-hl-color=COLOR_BASE08
+
+separator-color=00000000
+
+# Effects (if using swaylock-effects)
+# fade-in=0.2
+# effect-blur=7x5
+
+# Font
+font=FONT_FAMILY
+font-size=FONT_SIZE
+
+# Show indicators
+indicator-idle-visible
+indicator-caps-lock
+#indicator-radius=100
+indicator-thickness=5

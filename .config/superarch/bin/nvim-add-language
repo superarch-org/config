@@ -1,0 +1,53 @@
+#!/bin/bash
+set -euo pipefail
+
+lang_id="$1"
+
+if [ -z "$lang_id" ]; then
+  echo "Usage: nvim-add-language <language>"
+  echo ""
+  echo "Available languages:"
+  echo "  bash, c, go, html, javascript, json, lua, markdown, python, rust, yaml"
+  exit 1
+fi
+
+# Map language to Mason package (hardcoded for simplicity)
+case "$lang_id" in
+  bash) mason_pkg="bash-language-server" ;;
+  c) mason_pkg="clangd" ;;
+  go) mason_pkg="gopls" ;;
+  html) mason_pkg="html-lsp" ;;
+  javascript) mason_pkg="typescript-language-server" ;;
+  json) mason_pkg="json-lsp" ;;
+  lua) mason_pkg="lua-language-server" ;;
+  markdown) mason_pkg="marksman" ;;
+  python) mason_pkg="pyright" ;;
+  rust) mason_pkg="rust-analyzer" ;;
+  yaml) mason_pkg="yaml-language-server" ;;
+  *)
+    echo "Unknown language: $lang_id"
+    exit 1
+    ;;
+esac
+
+echo "Installing LSP: $mason_pkg"
+nvim --headless -c "MasonInstall $mason_pkg" -c "sleep 5" -c qa
+
+# Enable in config - create simple JSON manually
+config_dir="$HOME/.config/current"
+config_file="$config_dir/nvim-languages.json"
+
+mkdir -p "$config_dir"
+
+# Read existing or create empty object
+if [ -f "$config_file" ]; then
+  existing=$(cat "$config_file")
+else
+  existing="{}"
+fi
+
+# Add language using jq
+echo "$existing" | jq --arg lang "$lang_id" '.[$lang] = true' > "$config_file"
+
+echo "✓ Installed and enabled $lang_id"
+echo "Restart nvim to activate!"

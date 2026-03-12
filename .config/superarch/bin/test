@@ -1,0 +1,9 @@
+#!/bin/bash
+
+if [ -f "package.json" ]; then
+  if grep -q '"test"' package.json; then
+    npm run test
+  else
+    echo "No test script in package.json"
+  fi
+fi

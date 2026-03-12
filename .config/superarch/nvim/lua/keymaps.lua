@@ -20,3 +20,6 @@ vim.keymap.set("v", "<S-Tab>", "<gv", { desc = "Dedent selection" })
 -- Buffer navigation with Tab/Shift-Tab (in normal mode)
 vim.keymap.set("n", "<Tab>", ":BufferLineCycleNext<CR>", { desc = "Next buffer" })
 vim.keymap.set("n", "<S-Tab>", ":BufferLineCyclePrev<CR>", { desc = "Previous buffer" })
+-- Close current buffer
+vim.keymap.set("n", "<leader><Esc>", ":bd<CR>", { desc = "Close buffer" })
+vim.keymap.set("n", "ZZ", ":wqa<CR>", { desc = "Save and quit all" })

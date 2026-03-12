@@ -150,7 +150,6 @@ EOF
   local theme_file="$HOME/.config/current/theme.yaml"
   local url="https://raw.githubusercontent.com/tinted-theming/schemes/refs/heads/spec-0.11/base16/${name}.yaml"
 
-  echo "Downloading theme: $name..."
   if curl -fsSL "$url" -o "$theme_file"; then
     state_set_string theme "$name"
 
@@ -158,8 +157,6 @@ EOF
     if [[ -x "$APPLY" ]]; then
       "$APPLY" || true
     fi
-
-    echo "Set theme -> $name"
   else
     die "Failed to download theme: $name (URL: $url)"
   fi
@@ -189,12 +186,12 @@ main() {
       esac
       ;;
     theme)
-      local sub="${1:-}"; shift || true
-      case "$sub" in
-        get)  cmd_theme_get ;;
-        set)  cmd_theme_set "${1:-}" ;;
-        *) usage; exit 2 ;;
-      esac
+      local arg="${1:-}"; shift || true
+      if [ -z "$arg" ]; then
+        cmd_theme_get
+      else
+        cmd_theme_set "$arg"
+      fi
       ;;
     ""|help|-h|--help) usage ;;
     *) usage; exit 2 ;;

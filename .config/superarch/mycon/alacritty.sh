@@ -5,7 +5,6 @@ font_outdir="$HOME/.config/current/font"
 colors_outdir="$HOME/.config/current/colors"
 font_template="$HOME/.config/superarch/alacritty/font.template.toml"
 colors_template="$HOME/.config/superarch/alacritty/colors.template.toml"
-
 mkdir -p "$font_outdir" "$colors_outdir"
 
 # Generate font config (if template exists, otherwise fallback to inline)
