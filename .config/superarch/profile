@@ -1,7 +1,7 @@
 export PATH="$HOME/.config/superarch/bin:$PATH"
-
 # can be overridden in ~/.config/custom/profile
 export TERMINAL="${TERMINAL:-alacritty}"
 export EDITOR="${EDITOR:-nvim}"
 
-eval "$(mise activate bash)"
+# Source bashrc for interactive shells
+[ -n "$BASH_VERSION" ] && [ -f ~/.bashrc ] && source ~/.bashrc

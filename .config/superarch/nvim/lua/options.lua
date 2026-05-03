@@ -4,10 +4,10 @@ opt.number = true
 opt.relativenumber = true
 opt.mouse = "a"
 opt.clipboard = "unnamedplus"
-opt.tabstop = 2        -- Number of spaces a tab counts for
-opt.shiftwidth = 2     -- Number of spaces for autoindent
-opt.softtabstop = 2    -- Number of spaces for <Tab> in insert mode
-opt.expandtab = true   -- Convert tabs to spaces
+opt.tabstop = 2 -- Number of spaces a tab counts for
+opt.shiftwidth = 2 -- Number of spaces for autoindent
+opt.softtabstop = 2 -- Number of spaces for <Tab> in insert mode
+opt.expandtab = true -- Convert tabs to spaces
 
 opt.colorcolumn = "80"
 opt.signcolumn = "yes"
@@ -23,6 +23,6 @@ opt.listchars = {
   trail = "·",
   extends = ">",
   precedes = "<",
-  nbsp = "¬"
+  nbsp = "¬",
 }
 opt.list = true

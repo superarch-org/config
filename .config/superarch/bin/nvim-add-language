@@ -11,42 +11,78 @@ if [ -z "$lang_id" ]; then
   exit 1
 fi
 
-# Map language to Mason package (hardcoded for simplicity)
+# Map language to Mason packages (LSP + formatters)
 case "$lang_id" in
-  bash) mason_pkg="bash-language-server" ;;
-  c) mason_pkg="clangd" ;;
-  go) mason_pkg="gopls" ;;
-  html) mason_pkg="html-lsp" ;;
-  javascript) mason_pkg="typescript-language-server" ;;
-  json) mason_pkg="json-lsp" ;;
-  lua) mason_pkg="lua-language-server" ;;
-  markdown) mason_pkg="marksman" ;;
-  python) mason_pkg="pyright" ;;
-  rust) mason_pkg="rust-analyzer" ;;
-  yaml) mason_pkg="yaml-language-server" ;;
+  bash)
+    lsp="bash-language-server"
+    formatters="shfmt"
+    ;;
+  c)
+    lsp="clangd"
+    formatters="clang-format"
+    ;;
+  go)
+    lsp="gopls"
+    formatters="gofmt goimports"
+    ;;
+  html)
+    lsp="html-lsp"
+    formatters="prettier"
+    ;;
+  javascript)
+    lsp="typescript-language-server"
+    formatters="prettier eslint_d"
+    ;;
+  json)
+    lsp="json-lsp"
+    formatters="prettier"
+    ;;
+  lua)
+    lsp="lua-language-server"
+    formatters="stylua"
+    ;;
+  markdown)
+    lsp="marksman"
+    formatters="prettier"
+    ;;
+  python)
+    lsp="pyright"
+    formatters="ruff"
+    ;;
+  rust)
+    lsp="rust-analyzer"
+    formatters="rustfmt"
+    ;;
+  yaml)
+    lsp="yaml-language-server"
+    formatters="prettier"
+    ;;
   *)
     echo "Unknown language: $lang_id"
     exit 1
     ;;
 esac
 
-echo "Installing LSP: $mason_pkg"
-nvim --headless -c "MasonInstall $mason_pkg" -c "sleep 5" -c qa
+echo "Installing LSP: $lsp"
+nvim --headless -c "MasonInstall $lsp" -c "sleep 3" -c qa
 
-# Enable in config - create simple JSON manually
+echo "Installing formatters: $formatters"
+for formatter in $formatters; do
+  nvim --headless -c "MasonInstall $formatter" -c "sleep 2" -c qa
+done
+
+# Enable in config
 config_dir="$HOME/.config/current"
 config_file="$config_dir/nvim-languages.json"
 
 mkdir -p "$config_dir"
 
-# Read existing or create empty object
 if [ -f "$config_file" ]; then
   existing=$(cat "$config_file")
 else
   existing="{}"
 fi
 
-# Add language using jq
 echo "$existing" | jq --arg lang "$lang_id" '.[$lang] = true' > "$config_file"
 
 echo "✓ Installed and enabled $lang_id"

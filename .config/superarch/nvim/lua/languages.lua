@@ -1,80 +1,111 @@
--- Language definitions
 return {
   javascript = {
     name = "JavaScript/TypeScript",
     lsp = "ts_ls",
     treesitter = { "javascript", "typescript", "tsx", "jsdoc" },
     mason_name = "typescript-language-server",
-    root_markers = { "package.json", "tsconfig.json" }
+    formatters = { "eslint_d" },
+    root_markers = { "package.json", "tsconfig.json" },
+    indent = { expandtab = true, tabstop = 2, shiftwidth = 2 },
   },
+
   python = {
     name = "Python",
     lsp = "pyright",
     treesitter = { "python" },
     mason_name = "pyright",
-    root_markers = { "pyproject.toml", "setup.py", "requirements.txt" }
+    formatters = { "ruff" },
+    root_markers = { "pyproject.toml", "setup.py", "requirements.txt" },
+    indent = { expandtab = true, tabstop = 4, shiftwidth = 4 },
   },
+
   rust = {
     name = "Rust",
     lsp = "rust_analyzer",
     treesitter = { "rust" },
     mason_name = "rust-analyzer",
-    root_markers = { "Cargo.toml" }
+    formatters = { "rustfmt" },
+    root_markers = { "Cargo.toml" },
+    indent = { expandtab = true, tabstop = 4, shiftwidth = 4 },
   },
+
   lua = {
     name = "Lua",
     lsp = "lua_ls",
     treesitter = { "lua" },
     mason_name = "lua-language-server",
-    root_markers = { ".luarc.json", ".luacheckrc" }
+    formatters = { "stylua" },
+    root_markers = { ".luarc.json", ".luacheckrc" },
+    indent = { expandtab = true, tabstop = 2, shiftwidth = 2 },
   },
+
   go = {
     name = "Go",
     lsp = "gopls",
     treesitter = { "go", "gomod", "gosum" },
     mason_name = "gopls",
-    root_markers = { "go.mod" }
+    formatters = { "gofmt", "goimports" },
+    root_markers = { "go.mod" },
+    indent = { expandtab = false, tabstop = 2, shiftwidth = 2 }, -- Go uses tabs
   },
+
   c = {
     name = "C/C++",
     lsp = "clangd",
     treesitter = { "c", "cpp" },
     mason_name = "clangd",
-    root_markers = { "compile_commands.json", ".clangd" }
+    formatters = { "clang-format" },
+    root_markers = { "compile_commands.json", ".clangd" },
+    indent = { expandtab = true, tabstop = 2, shiftwidth = 2 },
   },
+
   bash = {
     name = "Bash",
     lsp = "bashls",
     treesitter = { "bash" },
     mason_name = "bash-language-server",
+    formatters = { "shfmt" },
     root_markers = {},
+    indent = { expandtab = true, tabstop = 2, shiftwidth = 2 },
   },
+
   html = {
     name = "HTML/CSS",
     lsp = "html",
     treesitter = { "html", "css" },
     mason_name = "html-lsp",
+    formatters = { "prettier" },
     root_markers = {},
+    indent = { expandtab = true, tabstop = 2, shiftwidth = 2 },
   },
+
   json = {
     name = "JSON",
     lsp = "jsonls",
     treesitter = { "json" },
     mason_name = "json-lsp",
+    formatters = { "prettier" },
     root_markers = {},
+    indent = { expandtab = true, tabstop = 2, shiftwidth = 2 },
   },
+
   yaml = {
     name = "YAML",
     lsp = "yamlls",
     treesitter = { "yaml" },
     mason_name = "yaml-language-server",
+    formatters = { "prettier" },
     root_markers = {},
+    indent = { expandtab = true, tabstop = 2, shiftwidth = 2 },
   },
+
   markdown = {
     name = "Markdown",
     lsp = "marksman",
     treesitter = { "markdown", "markdown_inline" },
     mason_name = "marksman",
+    formatters = { "prettier" },
     root_markers = {},
+    indent = { expandtab = true, tabstop = 2, shiftwidth = 2 },
   },
 }

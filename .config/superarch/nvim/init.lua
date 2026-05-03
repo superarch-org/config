@@ -9,11 +9,17 @@ require("keymaps")
 -- Core options
 require("options")
 
--- Load theme
-require("theme").setup();
+-- Theme
+require("theme").setup()
+
+-- Diagnostics
+require("diagnostics")
+
+-- Filetype-specific settings
+require("filetypes")
 
 -- Auto commands
-require("autocmds");
+require("autocmds")
 
 -- Load plugins
 require("manager")

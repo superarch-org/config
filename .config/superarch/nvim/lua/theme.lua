@@ -12,7 +12,7 @@ function M.load_colors()
   end
 
   for line in io.lines(theme_file) do
-    local key, value = line:match("^%s*(base%x%x):%s*\"(#%x%x%x%x%x%x)\"")
+    local key, value = line:match('^%s*(base%x%x):%s*"(#%x%x%x%x%x%x)"')
     if key and value then
       colors[key] = value
     end
@@ -84,6 +84,16 @@ function M.setup()
     Special = { fg = c.base0C },
     Error = { fg = c.base00, bg = c.base08 },
     Todo = { fg = c.base0A, bg = c.base01 },
+
+    -- Diagnostics (red errors, yellow warnings, etc.)
+    DiagnosticError = { fg = c.base08 }, -- Red
+    DiagnosticWarn = { fg = c.base0A }, -- Yellow
+    DiagnosticInfo = { fg = c.base0D }, -- Blue
+    DiagnosticHint = { fg = c.base0C }, -- Cyan
+    DiagnosticUnderlineError = { undercurl = true, sp = c.base08 },
+    DiagnosticUnderlineWarn = { undercurl = true, sp = c.base0A },
+    DiagnosticUnderlineInfo = { undercurl = true, sp = c.base0D },
+    DiagnosticUnderlineHint = { undercurl = true, sp = c.base0C },
 
     -- Diff
     DiffAdd = { fg = c.base0B, bg = c.base01 },
