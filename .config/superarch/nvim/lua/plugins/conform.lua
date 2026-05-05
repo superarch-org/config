@@ -5,7 +5,7 @@ return {
     require("conform").setup({
       format_on_save = {
         timeout_ms = 2000,
-        lsp_fallback = true,
+        lsp_format = "fallback",
       },
       formatters = {
         stylua = {
@@ -19,10 +19,10 @@ return {
         typescript = { "eslint_d" },
         typescriptreact = { "eslint_d" },
         vue = { "eslint_d" },
-        svelte = { "eslint_d" },
+        svelte = { lsp_format = "first" },
         json = { "prettier" },
         yaml = { "prettier" },
-        markdown = { "prettier" },
+        markdown = {},
         html = { "prettier" },
         css = { "prettier" },
         python = { "ruff_organize_imports", "ruff_format" },

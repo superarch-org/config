@@ -9,6 +9,16 @@ return {
     indent = { expandtab = true, tabstop = 2, shiftwidth = 2 },
   },
 
+  svelte = {
+    name = "Svelte",
+    lsp = "svelte",
+    treesitter = { "svelte" },
+    mason_name = "svelte-language-server",
+    formatters = {},
+    root_markers = { "svelte.config.js", "svelte.config.ts" },
+    indent = { expandtab = true, tabstop = 2, shiftwidth = 2 },
+  },
+
   python = {
     name = "Python",
     lsp = "pyright",

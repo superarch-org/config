@@ -7,7 +7,7 @@ if [ -z "$lang_id" ]; then
   echo "Usage: nvim-add-language <language>"
   echo ""
   echo "Available languages:"
-  echo "  bash, c, go, html, javascript, json, lua, markdown, python, rust, yaml"
+echo "  bash, c, go, html, javascript, json, lua, markdown, python, rust, svelte, yaml"
   exit 1
 fi
 
@@ -31,7 +31,11 @@ case "$lang_id" in
     ;;
   javascript)
     lsp="typescript-language-server"
-    formatters="prettier eslint_d"
+    formatters="eslint_d"
+    ;;
+  svelte)
+    lsp="svelte-language-server"
+    formatters=""
     ;;
   json)
     lsp="json-lsp"
@@ -67,9 +71,11 @@ echo "Installing LSP: $lsp"
 nvim --headless -c "MasonInstall $lsp" -c "sleep 3" -c qa
 
 echo "Installing formatters: $formatters"
-for formatter in $formatters; do
-  nvim --headless -c "MasonInstall $formatter" -c "sleep 2" -c qa
-done
+if [ -n "$formatters" ]; then
+  for formatter in $formatters; do
+    nvim --headless -c "MasonInstall $formatter" -c "sleep 2" -c qa
+  done
+fi
 
 # Enable in config
 config_dir="$HOME/.config/current"

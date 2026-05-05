@@ -13,6 +13,8 @@ eval $(keychain --eval --quiet id_ed25519)
 # Dircolors
 [ -f ~/.config/current/dircolors ] && eval "$(dircolors ~/.config/current/dircolors)"
 
+# Mason
+export PATH="$HOME/.local/share/nvim/mason/bin:$PATH"
+
 # Mise
 eval "$(mise activate bash)"
-
