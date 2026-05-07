@@ -1,5 +1,12 @@
 # Superarch managed bash configuration
 
+# History
+HISTSIZE=10000
+HISTFILESIZE=20000
+HISTCONTROL=ignoredups:erasedups
+shopt -s histappend
+PROMPT_COMMAND="history -a"
+
 # Aliases
 alias ls='ls --color=auto'
 alias grep='grep --color=auto'

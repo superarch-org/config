@@ -1,6 +1,6 @@
 return {
   "stevearc/conform.nvim",
-  event = "BufWritePre",
+  event = { "BufReadPre", "BufNewFile" },
   config = function()
     require("conform").setup({
       format_on_save = {
@@ -14,12 +14,6 @@ return {
       },
       formatters_by_ft = {
         lua = { "stylua" },
-        javascript = { "eslint_d" },
-        javascriptreact = { "eslint_d" },
-        typescript = { "eslint_d" },
-        typescriptreact = { "eslint_d" },
-        vue = { "eslint_d" },
-        svelte = { lsp_format = "first" },
         json = { "prettier" },
         yaml = { "prettier" },
         markdown = {},
