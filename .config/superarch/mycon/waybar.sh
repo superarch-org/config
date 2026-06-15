@@ -1,7 +1,7 @@
 #!/bin/sh
 set -eu
 
-config_template="$HOME/.config/superarch/waybar/config.template"
+config_template="$HOME/.config/superarch/waybar/config.template.json"
 style_template="$HOME/.config/superarch/waybar/style.template.css"
 config_output="$HOME/.config/waybar/config"
 style_output="$HOME/.config/waybar/style.css"

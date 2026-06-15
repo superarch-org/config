@@ -16,6 +16,12 @@ case "${1:-full}" in
     grim -g "$geometry" "$filename"
     notify-send "Screenshot" "Window saved 0"
     ;;
+  area)
+    geometry=$(slurp)
+    [ -z "$geometry" ] && exit 0
+    grim -g "$geometry" "$filename"
+    notify-send "Screenshot" "Area saved"
+    ;;
   *)
     echo "Usage: screenshot [full|window]"
     exit 1

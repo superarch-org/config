@@ -296,7 +296,8 @@ binds {
 //    XF86AudioRaiseVolume allow-when-locked=true { spawn-sh "wpctl set-volume @DEFAULT_AUDIO_SINK@ 0.1+"; }
  //   XF86AudioLowerVolume allow-when-locked=true { spawn-sh "wpctl set-volume @DEFAULT_AUDIO_SINK@ 0.1-"; }
 //    XF86AudioMute        allow-when-locked=true { spawn-sh "wpctl set-mute @DEFAULT_AUDIO_SINK@ toggle"; }
-    XF86AudioMicMute     allow-when-locked=true { spawn-sh "wpctl set-mute @DEFAULT_AUDIO_SOURCE@ toggle"; }
+   // XF86AudioMicMute     allow-when-locked=true { spawn-sh "wpctl set-mute @DEFAULT_AUDIO_SOURCE@ toggle"; }
+    XF86AudioMicMute allow-when-locked=true { spawn-sh "wpctl set-mute @DEFAULT_AUDIO_SOURCE@ toggle && swayosd-client --input-volume mute-toggle"; }
     XF86AudioRaiseVolume allow-when-locked=true { spawn-sh "swayosd-client --output-volume raise"; }
     XF86AudioLowerVolume allow-when-locked=true { spawn-sh "swayosd-client --output-volume lower"; }
     XF86AudioMute        allow-when-locked=true { spawn-sh "swayosd-client --output-volume mute-toggle"; }
@@ -316,9 +317,9 @@ binds {
 
     Mod+Q repeat=false { close-window; }
 
-    Mod+D {
-        spawn-sh "brave --app=https://discord.com/app --user-data-dir=$HOME/.config/web-apps/discord";
-    }
+    Mod+D { spawn-sh "brave --app=https://discord.com/app --user-data-dir=$HOME/.config/web-apps/discord"; }
+    Mod+S { spawn-sh "brave --app=https://open.spotify.com --user-data-dir=$HOME/.config/web-apps/spotify"; }
+    Mod+T { spawn-sh "brave --app=https://web.telegram.org --user-data-dir=$HOME/.config/web-apps/telegram"; }
 
     Mod+Left  { focus-column-left; }
     //Mod+Down  { focus-window-down; }
@@ -534,7 +535,7 @@ binds {
 
     Print { spawn "screenshot" "full"; }
     Ctrl+Print { spawn "screenshot" "window"; }
-    //Alt+Print { screenshot-window; }
+    Shift+Print { spawn "screenshot" "area"; }
     Mod+P { spawn-sh "imv ~/pictures/screenshots"; }
 
     // Applications such as remote-desktop clients and software KVM switches may

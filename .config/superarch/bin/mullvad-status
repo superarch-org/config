@@ -1,0 +1,12 @@
+#!/bin/sh
+status=$(mullvad status)
+
+if echo "$status" | grep -q "Connected"; then
+  location=$(echo "$status" | grep "Visible location:" | sed 's/.*Visible location:[[:space:]]*//' | sed 's/\. IPv4.*//')
+  # location is now "Sweden, Stockholm"
+  country=$(echo "$location" | cut -d',' -f1 | xargs)
+  city=$(echo "$location" | cut -d',' -f2 | xargs)
+  echo "VPN ON ($city)"
+else
+  echo "VPN OFF"
+fi

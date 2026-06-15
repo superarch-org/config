@@ -168,8 +168,8 @@ usage:
   mycon font list
   mycon font get
   mycon font set <id>
-  mycon theme get
-  mycon theme set <name>
+  mycon theme
+  mycon theme <name>
 EOF
 }
 

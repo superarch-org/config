@@ -37,6 +37,16 @@ if [ -f "$theme_file" ]; then
   done < "$theme_file"
 fi
 
+# Set color scheme from theme variant
+if [ -f "$theme_file" ]; then
+  variant=$(grep '^variant:' "$theme_file" | sed 's/variant:[[:space:]]*"\(.*\)"/\1/')
+  if [ "$variant" = "light" ]; then
+    gsettings set org.gnome.desktop.interface color-scheme 'prefer-light'
+  else
+    gsettings set org.gnome.desktop.interface color-scheme 'prefer-dark'
+  fi
+fi
+
 # Run handler scripts only if the program is installed
 for handler in "$handlers"/*.sh; do
   [ -x "$handler" ] || continue

@@ -118,4 +118,26 @@ return {
     root_markers = {},
     indent = { expandtab = true, tabstop = 2, shiftwidth = 2 },
   },
+
+  zig = {
+    name = "Zig",
+    lsp = "zls",
+    treesitter = { "zig" },
+    mason_name = "zls",
+    formatters = {},
+    root_markers = { "build.zig" },
+    indent = { expandtab = true, tabstop = 4, shiftwidth = 4 },
+  },
+
+  marko = {
+    name = "Marko",
+    lsp = "marko-js",
+    filetypes = { "marko" },
+    extensions = { "marko" },
+    treesitter = {}, -- No treesitter parser yet
+    mason_name = "marko-language-server",
+    formatters = {},
+    root_markers = { "package.json" },
+    indent = { expandtab = true, tabstop = 2, shiftwidth = 2 },
+  },
 }

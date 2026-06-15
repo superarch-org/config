@@ -1,0 +1,63 @@
+{
+  "layer": "top",
+  "position": "top",
+  "height": 30,
+  "spacing": 4,
+  "modules-left": ["niri/workspaces"],
+  "modules-center": ["clock"],
+  "modules-right": [
+    "custom/mullvad",
+    "pulseaudio",
+    "custom/mic",
+    "network",
+    "battery",
+    "custom/battery1"
+  ],
+
+  "clock": {
+    "format": "{:%H:%M}",
+    "tooltip-format": "<big>{:%d %B %Y}</big>"
+  },
+
+  "battery": {
+    "bat": "BAT0",
+    "adapter": "AC",
+    "format": "{capacity}% {icon}",
+    "format-icons": ["", "", "", "", ""]
+  },
+
+  "network": {
+    "format-wifi": "{essid} ",
+    "format-ethernet": "{ipaddr}/{cidr} ",
+    "format-disconnected": "Disconnected ⚠"
+  },
+
+  "pulseaudio": {
+    "format": "{volume}% {icon}",
+    "format-muted": " muted",
+    "format-icons": {
+      "default": ["", "", ""]
+    }
+  },
+
+  "custom/mullvad": {
+    "exec": "mullvad-status",
+    "interval": 10,
+    "on-click": "mullvad connect",
+    "on-click-right": "mullvad disconnect",
+    "tooltip": false
+  },
+
+  "custom/mic": {
+    "exec": "wpctl get-volume @DEFAULT_AUDIO_SOURCE@ | grep -q MUTED && echo '󰍭' || echo '󰍬'",
+    "interval": 2,
+    "on-click": "wpctl set-mute @DEFAULT_AUDIO_SOURCE@ toggle",
+    "tooltip": false
+  },
+
+  "custom/battery1": {
+    "exec": "[ -f /sys/class/power_supply/BAT1/capacity ] && echo \" $(cat /sys/class/power_supply/BAT1/capacity)%\" || echo ''",
+    "interval": 30,
+    "tooltip": false
+  }
+}

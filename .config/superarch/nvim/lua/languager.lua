@@ -86,6 +86,15 @@ function M.setup_lsps()
     if is_enabled then
       local lang = languages[lang_id]
       if lang and lang.lsp then
+        -- Register filetype detection if needed
+        if lang.extensions then
+          local ext_map = {}
+          for _, ext in ipairs(lang.extensions) do
+            ext_map[ext] = lang.filetypes and lang.filetypes[1] or ext
+          end
+          vim.filetype.add({ extension = ext_map })
+        end
+
         local cfg = {
           on_attach = on_attach,
           capabilities = capabilities,

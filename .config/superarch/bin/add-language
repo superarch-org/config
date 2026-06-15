@@ -61,6 +61,10 @@ case "$lang_id" in
     lsp="yaml-language-server"
     formatters="prettier"
     ;;
+  zig)
+    lsp="zls"
+    formatters=""
+    ;;
   *)
     echo "Unknown language: $lang_id"
     exit 1

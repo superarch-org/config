@@ -58,3 +58,13 @@ window#waybar {
 #pulseaudio.muted {
   color: COLOR_BASE03;
 }
+
+#custom-mic {
+  padding: 0 10px;
+  color: COLOR_BASE0B;
+}
+
+#custom-battery1 {
+  padding-right: 10px;
+  color: COLOR_BASE05;
+}

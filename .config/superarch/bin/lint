@@ -1,0 +1,8 @@
+#!/bin/bash
+
+if [ -f "package.json" ] && grep -q '"lint"' package.json; then
+  npm run lint
+else
+  echo "❌ no recognized project type found"
+  exit 1
+fi

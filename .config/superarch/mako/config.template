@@ -18,3 +18,6 @@ padding=10
 
 # Max visible
 max-visible=3
+
+# Fullscreen notifications
+layer=overlay
