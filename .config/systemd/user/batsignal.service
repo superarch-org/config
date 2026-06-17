@@ -1,0 +1,13 @@
+[Unit]
+Description=Battery level notifications
+Documentation=https://github.com/electrickite/batsignal
+PartOf=graphical-session.target
+After=graphical-session.target
+
+[Service]
+Type=simple
+ExecStart=/usr/bin/batsignal -w 30 -c 15 -d 10 -f 95 -p -P "charging"
+Restart=on-failure
+
+[Install]
+WantedBy=graphical-session.target
