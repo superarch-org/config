@@ -6,7 +6,7 @@ After=graphical-session.target
 
 [Service]
 Type=simple
-ExecStart=/usr/bin/batsignal -w 30 -c 15 -d 10 -f 95 -p -P "charging"
+ExecStart=/usr/bin/batsignal -w 30 -c 15 -d 10 -e -p -P "charging"
 Restart=on-failure
 
 [Install]

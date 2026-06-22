@@ -4,7 +4,7 @@ return {
     lsp = "ts_ls",
     treesitter = { "javascript", "typescript", "tsx", "jsdoc" },
     mason_name = "typescript-language-server",
-    formatters = { "eslint_d" },
+    formatters = { "eslint-lsp" },
     root_markers = { "package.json", "tsconfig.json" },
     indent = { expandtab = true, tabstop = 2, shiftwidth = 2 },
   },

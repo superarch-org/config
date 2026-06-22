@@ -31,7 +31,7 @@ case "$lang_id" in
     ;;
   javascript)
     lsp="typescript-language-server"
-    formatters="eslint_d"
+    formatters="eslint-lsp"
     ;;
   svelte)
     lsp="svelte-language-server"
